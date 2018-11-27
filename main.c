@@ -14,7 +14,8 @@ static void print_hello (GtkWidget *widget, gpointer data)
 static void activate (GtkApplication *app, gpointer user_data)
 {
   GtkWidget *window;
-  GtkWidget *button;
+  GtkWidget *button1;
+  GtkWidget *button2;
   GtkWidget *button_box;
 
   window = gtk_application_window_new (app);
@@ -24,11 +25,13 @@ static void activate (GtkApplication *app, gpointer user_data)
   button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
   gtk_container_add (GTK_CONTAINER (window), button_box);
 
-  button = gtk_button_new_with_label ("Hello World");
-  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
-  g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_widget_destroy), window);
-  gtk_container_add (GTK_CONTAINER (button_box), button);
+  button1 = gtk_toggle_button_new();
+  g_signal_connect (button1, "clicked", G_CALLBACK (gtk_toggle_button_set_active), button1);
+  button2 = gtk_toggle_button_new();
+  g_signal_connect (button2, "clicked", G_CALLBACK (gtk_toggle_button_set_active), button2);
 
+  gtk_container_add (GTK_CONTAINER (button_box), button1);
+  gtk_container_add (GTK_CONTAINER (button_box), button2);
   gtk_widget_show_all (window);
 }
 
