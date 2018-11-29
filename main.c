@@ -14,7 +14,7 @@ static GtkWidget *xpm_label_box( gchar     *xpm_filename,
 
     /* Create box for image and label */
     box = gtk_hbox_new (FALSE, 0);
-    gtk_container_set_border_width (GTK_CONTAINER (box), 30);
+    gtk_container_set_border_width (GTK_CONTAINER (box), 10);
 
     /* Now on to the image stuff */
     image = gtk_image_new_from_file (xpm_filename);
@@ -27,7 +27,7 @@ static GtkWidget *xpm_label_box( gchar     *xpm_filename,
     gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 3);
 
     gtk_widget_show (image);
-    gtk_widget_show (label);
+//    gtk_widget_show (label);
 
     return box;
 }
@@ -110,6 +110,10 @@ int main( int   argc,
 
 			g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_toggle_button_set_active), button);
 			gtk_table_attach_defaults (GTK_TABLE (table), button, j, j+1, i, i + 1);
+
+			//set styles, images, and boarders here
+
+
 
 			gtk_widget_show (button);
 			count++;
