@@ -42,6 +42,12 @@ static GtkWidget *xpm_label_box( gchar     *xpm_filename,
 static void callback( GtkWidget *widget,
                       gpointer   data )
 {
+	GtkWidget *image;
+
+	gtk_button_set_label (widget ,"Changed");
+	image = gtk_image_new_from_file("th.jpeg");
+
+	gtk_button_set_image (widget, image );
     g_print ("Hello again - %s was pressed\n", (char *) data);
 }
 
@@ -102,7 +108,7 @@ int main( int   argc,
 
 			g_signal_connect (button, "clicked",G_CALLBACK (callback), (gpointer) name[count]);
 
-
+			g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_toggle_button_set_active), button);
 			gtk_table_attach_defaults (GTK_TABLE (table), button, j, j+1, i, i + 1);
 
 			gtk_widget_show (button);
