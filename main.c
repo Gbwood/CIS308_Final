@@ -44,7 +44,7 @@ static void callback( GtkWidget *widget,
 {
 	GtkWidget *image;
 
-	gtk_button_set_label (widget ,"Changed");
+	gtk_button_set_label (widget , NULL);
 	image = gtk_image_new_from_file("th.jpeg");
 
 	gtk_button_set_image (widget, image );
