@@ -171,6 +171,7 @@ GtkWidget * MakeUI(GtkWidget *window) {
 //      gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
         gtk_widget_show (box);
 	gtk_widget_show (box2);
+	    gtk_container_add (GTK_CONTAINER (window), box1);
 
         //now that the table is done we can show it
         gtk_widget_show (box1);	
