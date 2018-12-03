@@ -64,6 +64,53 @@ static gboolean delete_event( GtkWidget *widget,
     return FALSE;
 }
 
+GtkWidget * fillTable(GtkWidget *window) {
+//65
+	GtkWidget *button;
+    	GtkWidget *table;
+
+
+	/* Create a 2x2 table */
+        table = gtk_table_new (9, 9, TRUE);
+
+        /* Put the table in the main window */
+        gtk_container_add (GTK_CONTAINER (window), table);
+
+
+
+        int i = 0;
+        int j = 0;
+        char name[81][10];
+	 int count =0;
+        //this should fill a 9 x 9 table with 81 buttons
+        for (i = 0; i < 9 ; i++) {
+                for (j = 0; j< 9; j++) {
+
+//88
+                        sprintf(name[count], "button%d-%d",i,j);
+                        button = gtk_toggle_button_new_with_label(name[count]);
+
+                        g_signal_connect (button, "clicked",G_CALLBACK (callback), (gpointer) name[count]);
+
+                        g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_toggle_button_set_active), button);
+                        gtk_table_attach_defaults (GTK_TABLE (table), button, j, j+1, i, i + 1);
+
+                        //set styles, images, and boarders here
+
+
+//100
+                        gtk_widget_show (button);
+                        count++;
+                }
+
+        }
+	gtk_widget_show (table);
+	gtk_widget_show (window);
+
+	return table;
+}
+
+
 int main( int   argc,
           char *argv[] )
 {
@@ -71,11 +118,11 @@ int main( int   argc,
     GtkWidget *button;
     GtkWidget *table;
 	GtkWidget *box;
-    gtk_init (&argc, &argv);
+	gtk_init (&argc, &argv);
 
     /* Create a new window */
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-
+//123
     /* Set the window title */
     gtk_window_set_title (GTK_WINDOW (window), "GO");
 
@@ -87,40 +134,13 @@ int main( int   argc,
     /* Sets the border width of the window. */
 	gtk_container_set_border_width (GTK_CONTAINER (window), 200);
 
-    /* Create a 2x2 table */
-	table = gtk_table_new (10, 9, TRUE);
 
-	/* Put the table in the main window */
-	gtk_container_add (GTK_CONTAINER (window), table);
+	//creates a new blank table
+	table = fillTable(window);
 
 
+//140
 
-	int i = 0;
-	int j = 0;
-	char name[81][10];
-	int count =0;
-	//this should fill a 9 x 9 table with 81 buttons
-	for (i = 0; i < 9 ; i++) {
-		for (j = 0; j< 9; j++) {
-
-
-			sprintf(name[count], "button%d-%d",i,j);
-			button = gtk_toggle_button_new_with_label(name[count]);
-
-			g_signal_connect (button, "clicked",G_CALLBACK (callback), (gpointer) name[count]);
-
-			g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_toggle_button_set_active), button);
-			gtk_table_attach_defaults (GTK_TABLE (table), button, j, j+1, i, i + 1);
-
-			//set styles, images, and boarders here
-
-
-
-			gtk_widget_show (button);
-			count++;
-		}
-
-	}
 
 	//creating a quit button
 
@@ -130,13 +150,13 @@ int main( int   argc,
 	g_signal_connect (button, "clicked", G_CALLBACK (delete_event), "Quit");
 
 	box = xpm_label_box ("info.xpm", "Quit");
-
+//150
 	gtk_container_add (GTK_CONTAINER (button), box);
 
 	gtk_widget_show (button);
 
 
-	gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
+//	gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
 	gtk_widget_show (box);
 
 
@@ -150,4 +170,4 @@ int main( int   argc,
 	gtk_main ();
 
 	return 0;
-}
+}//170
