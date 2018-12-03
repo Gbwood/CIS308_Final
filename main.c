@@ -74,7 +74,7 @@ GtkWidget * fillTable(GtkWidget *window) {
         table = gtk_table_new (9, 9, TRUE);
 
         /* Put the table in the main window */
-        gtk_container_add (GTK_CONTAINER (window), table);
+        
 
 
 
@@ -104,68 +104,90 @@ GtkWidget * fillTable(GtkWidget *window) {
                 }
 
         }
-	gtk_widget_show (table);
-	gtk_widget_show (window);
+	//gtk_widget_show (table);
+	//gtk_widget_show (window);
 
 	return table;
 }
 
 
-int main( int   argc,
-          char *argv[] )
-{
-    GtkWidget *window;
-    GtkWidget *button;
-    GtkWidget *table;
-	GtkWidget *box;
-	gtk_init (&argc, &argv);
+GtkWidget * MakeUI(GtkWidget *window) {
 
+    	GtkWidget *button;
+    	GtkWidget *table;
+        GtkWidget *box;
+	GtkWidget *box1;
+	GtkWidget *box2; 
     /* Create a new window */
-    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 //123
     /* Set the window title */
-    gtk_window_set_title (GTK_WINDOW (window), "GO");
+    	gtk_window_set_title (GTK_WINDOW (window), "GO");
 
     /* Set a handler for delete_event that immediately
      * exits GTK. */
-    g_signal_connect (window, "delete-event",
+    	g_signal_connect (window, "delete-event",
                       G_CALLBACK (delete_event), NULL);
 
     /* Sets the border width of the window. */
-	gtk_container_set_border_width (GTK_CONTAINER (window), 200);
+        gtk_container_set_border_width (GTK_CONTAINER (window), 200);
 
 
-	//creates a new blank table
-	table = fillTable(window);
+	//we are going to create a horizontal box to pack the vertical boxes into
+	box1 = gtk_hbox_new( FALSE, 0);
 
+	box2 = gtk_vbox_new (FALSE, 0);
 
-//140
+	gtk_box_pack_start (GTK_BOX (box1), box2, FALSE, FALSE, 0);
 
+        //creates a new blank table
+        table = fillTable(window);
 
+	gtk_box_pack_start (GTK_BOX (box2), table, FALSE, FALSE, 0);
+//140	
+	gtk_widget_show (table);
+	gtk_widget_show (box2);
+
+        
 	//creating a quit button
 
+	box2 = gtk_vbox_new (FALSE, 0);
 
-	button = gtk_button_new();
+        button = gtk_button_new();
 
-	g_signal_connect (button, "clicked", G_CALLBACK (delete_event), "Quit");
+        g_signal_connect (button, "clicked", G_CALLBACK (delete_event), "Quit");
 
-	box = xpm_label_box ("info.xpm", "Quit");
+        box = xpm_label_box ("info.xpm", "Quit");
 //150
-	gtk_container_add (GTK_CONTAINER (button), box);
+        gtk_container_add (GTK_CONTAINER (button), box);
 
-	gtk_widget_show (button);
+	gtk_box_pack_start (GTK_BOX (box2), box, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (box1), box2, FALSE, FALSE, 0);
+
+        gtk_widget_show (button);
 
 
-//	gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
-	gtk_widget_show (box);
+//      gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
+        gtk_widget_show (box);
 
 
-	//now that the table is done we can show it
-	gtk_widget_show (table);
-
-	//now that the window is populated we can show the window
+        //now that the table is done we can show it
+        gtk_widget_show (box1);	
 	gtk_widget_show (window);
 
+	return window;
+
+
+}
+
+int main( int   argc,
+          char *argv[] )
+{
+    	GtkWidget *window;
+	gtk_init (&argc, &argv);
+
+    	/* Create a new window */
+    	window = MakeUI(window);
 	//runs the programs and waits for input from the user
 	gtk_main ();
 
