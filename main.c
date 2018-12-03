@@ -15,7 +15,8 @@ static GtkWidget *xpm_label_box( gchar     *xpm_filename,
 
     /* Create box for image and label */
     box = gtk_hbox_new (FALSE, 0);
-    gtk_container_set_border_width (GTK_CONTAINER (box), 10);
+   	//change number here to change size of box
+	 gtk_container_set_border_width (GTK_CONTAINER (box), 10);
 
     /* Now on to the image stuff */
     image = gtk_image_new_from_file (xpm_filename);
@@ -28,7 +29,7 @@ static GtkWidget *xpm_label_box( gchar     *xpm_filename,
     gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 3);
 
     gtk_widget_show (image);
-//    gtk_widget_show (label);
+    gtk_widget_show (label);
 
     return box;
 }
@@ -169,7 +170,7 @@ GtkWidget * MakeUI(GtkWidget *window) {
 
 //      gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
         gtk_widget_show (box);
-
+	gtk_widget_show (box2);
 
         //now that the table is done we can show it
         gtk_widget_show (box1);	
