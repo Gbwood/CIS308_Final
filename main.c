@@ -3,7 +3,6 @@
 #include <gtk/gtk.h>
 #include "types.h"
 #include "buttonActions.h"
-
 #include "unused.h"
 
 
@@ -145,6 +144,9 @@ GtkWidget* MakeUI(GtkWidget *window) {
 	//gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
     	//gtk_widget_show (box);
 	gtk_widget_show (box2);
+
+
+
 
 
 	//don't know if this will end up going here or not
