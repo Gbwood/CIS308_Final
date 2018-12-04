@@ -54,7 +54,7 @@ GtkWidget * fillTable() {
 
         }
 	gtk_widget_show (table);
-	//gtk_widget_show (window);
+
 
 	return table;
 }
@@ -105,18 +105,19 @@ GtkWidget* MakeUI(GtkWidget *window) {
 	GtkWidget *box2;
 	GtkWidget *restart;
 
+
 	/* Create a new window */
     	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
-    /* Set the window title */
+    	/* Set the window title */
     	gtk_window_set_title (GTK_WINDOW (window), "GO");
 
-    /* Set a handler for delete_event that immediately
-     * exits GTK. */
+    	/* Set a handler for delete_event that immediately
+     	* exits GTK. */
     	g_signal_connect (window, "delete-event",
                       G_CALLBACK (delete_event), NULL);
 
-    /* Sets the border width of the window. */
+	/* Sets the border width of the window. */
         gtk_container_set_border_width (GTK_CONTAINER (window), 80);
 
 
@@ -150,7 +151,7 @@ GtkWidget* MakeUI(GtkWidget *window) {
 
 
 	//don't know if this will end up going here or not
-//	box2 = createPlayerBoard();
+	//box2 = createPlayerBoard();
 
 
 	gtk_container_add (GTK_CONTAINER (window), box1);
@@ -174,7 +175,7 @@ GtkWidget* MakeUI(GtkWidget *window) {
 int main( int   argc,
           char *argv[] )
 {
-    	GtkWidget *window;
+    	
 	gtk_init (&argc, &argv);
 
     	/* Create a new window */

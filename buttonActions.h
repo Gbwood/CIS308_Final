@@ -4,7 +4,7 @@ GtkWidget * MakeUI(GtkWidget*);
 
 
 static void Restart (GtkWidget *widget, gpointer data) {
-        GtkWidget *window;
+//	window.destroy();
         MakeUI(window);
         g_print ("restart\n");
 }
@@ -40,13 +40,13 @@ static void callback( GtkWidget *widget,
 
 		case 0:
         		gtk_button_set_label (widget , NULL);
-		        image = gtk_image_new_from_file("th.jpeg");
+		        image = gtk_image_new_from_file("bc.png");
         		gtk_button_set_image (widget, image );
 			turn = 1;
 			break;
 		case 1:
 			g_print ("case 2\n");
-                        image = gtk_image_new_from_file("th.jpeg");
+                        image = gtk_image_new_from_file("wc.png");
                         gtk_button_set_image (widget, image );
 			turn = 0;
 			break;

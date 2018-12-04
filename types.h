@@ -11,6 +11,8 @@
 typedef enum Color{ BLACK, WHITE, NONE } Color;
 char name[81][10];
 int turn;
+GtkWidget *window;
+
 
 #endif /* types_h */
 
