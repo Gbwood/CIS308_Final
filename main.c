@@ -12,7 +12,6 @@
 
 
 GtkWidget * fillTable() {
-//65
 	GtkWidget *button;
     	GtkWidget *table;
 	GtkWidget *image;
@@ -32,7 +31,6 @@ GtkWidget * fillTable() {
                         sprintf(name[count], "button%d-%d",i,j);
                         button = gtk_toggle_button_new_with_label(name[count]);
 
-
 			//would it be possible to make a struct for all the button that contain a variable that changes based on whose turn it is?
                         g_signal_connect (button, "clicked",G_CALLBACK (callback), (gpointer) name[count]);
 
@@ -40,7 +38,6 @@ GtkWidget * fillTable() {
                         gtk_table_attach_defaults (GTK_TABLE (table), button, j, j+1, i, i + 1);
 
                         //set styles, images, and boarders here
-
 
 		        gtk_button_set_label (button, NULL);
         		image = gtk_image_new_from_file("square.png");
@@ -162,7 +159,7 @@ GtkWidget* MakeUI(GtkWidget *window) {
 	
 
 
-	turn = 0;
+	turn = PLAYER1;
 
 	return window;
 
@@ -172,9 +169,7 @@ GtkWidget* MakeUI(GtkWidget *window) {
 
 
 
-int main( int   argc,
-          char *argv[] )
-{
+int main( int   argc, char *argv[] ) {
     	
 	gtk_init (&argc, &argv);
 

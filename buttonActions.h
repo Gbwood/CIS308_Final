@@ -15,8 +15,8 @@ static void forfeitTurn (GtkWidget *widget, gpointer data) {
 
 	g_print ("player %d skipped their turn", turn);
 
-	if (turn == 0) turn++;
-	else turn = 0;
+	if (turn == PLAYER1) PLAYER2;
+	else turn = PLAYER1;
 
         g_print ("it is now player %d's turn.\n", turn);
 
@@ -37,18 +37,18 @@ static void callback( GtkWidget *widget,
         GtkWidget *image;
 
 	switch (turn){
-
-		case 0:
+		//add get image to each case to check if peice has already been played on tile
+		case PLAYER1:
         		gtk_button_set_label (widget , NULL);
 		        image = gtk_image_new_from_file("bc.png");
         		gtk_button_set_image (widget, image );
-			turn = 1;
+			turn = PLAYER2;
 			break;
-		case 1:
+		case PLAYER2:
 			g_print ("case 2\n");
                         image = gtk_image_new_from_file("wc.png");
                         gtk_button_set_image (widget, image );
-			turn = 0;
+			turn = PLAYER1;
 			break;
 	}
 	
