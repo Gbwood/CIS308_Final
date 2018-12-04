@@ -22,7 +22,7 @@ typedef struct Button{
 
 } Button;
 char name[81][10];
-int turn;
+State turn;
 GtkWidget *window;
 
 
