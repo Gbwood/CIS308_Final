@@ -9,6 +9,8 @@
 
 //typedef enum { FALSE, TRUE } bool;
 typedef enum Color{ BLACK, WHITE, NONE } Color;
+char name[81][10];
+int turn;
 
 #endif /* types_h */
 
