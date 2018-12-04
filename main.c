@@ -22,9 +22,6 @@ GtkWidget * fillTable() {
 
         /* Put the table in the main window */
 
-
-
-
         int i = 0;
         int j = 0;
 	int count =0;
@@ -110,7 +107,7 @@ GtkWidget* MakeUI(GtkWidget *window) {
 
 	/* Create a new window */
     	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-//123
+
     /* Set the window title */
     	gtk_window_set_title (GTK_WINDOW (window), "GO");
 
@@ -150,6 +147,12 @@ GtkWidget* MakeUI(GtkWidget *window) {
 	//gtk_table_attach_defaults (GTK_TABLE (table), button, 0, 9, 9, 10);
     	//gtk_widget_show (box);
 	gtk_widget_show (box2);
+
+
+	//don't know if this will end up going here or not
+//	box2 = createPlayerBoard();
+
+
 	gtk_container_add (GTK_CONTAINER (window), box1);
 
         //now that the table is done we can show it
