@@ -102,7 +102,13 @@ GtkWidget* CreatePlayerBox() {
 	gtk_box_pack_start(GTK_BOX (box2),name, TRUE, FALSE,0);
  	gtk_widget_show(name);
 
-	Player_1_Score = gtk_label_new("0");
+    	char buffer [33];
+    
+    
+    	sprintf(buffer, "%d", p1_Score);
+
+	
+	Player_1_Score = gtk_label_new(buffer);
 	gtk_box_pack_start (GTK_BOX (box2), Player_1_Score, TRUE, FALSE, 0);
 	gtk_widget_show(Player_1_Score);
 
@@ -115,9 +121,9 @@ GtkWidget* CreatePlayerBox() {
 	gtk_box_pack_start(GTK_BOX (box2), name, TRUE, FALSE, 0);
 	gtk_widget_show(name);
 
+	sprintf(buffer, "%d", p2_Score);
 
-
-	Player_2_Score = gtk_label_new("0");
+	Player_2_Score = gtk_label_new(buffer);
 	gtk_box_pack_start (GTK_BOX (box2), Player_2_Score, TRUE, FALSE, 0);
 	gtk_widget_show(Player_2_Score);
 

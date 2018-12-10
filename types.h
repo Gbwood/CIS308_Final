@@ -45,6 +45,8 @@ GtkWidget *window;
 Button board[81];
 int board_count;
 GtkWidget * Player_1_Score;
+int p1_Score = 0;
+int p2_Score = 0;
 GtkWidget * Player_2_Score;
 gchar* player_1_Name;
 gchar* player_2_Name;

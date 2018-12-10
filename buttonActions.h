@@ -77,6 +77,10 @@ static void callback( GtkWidget *widget,
 			b.current_status = DISABLED;
 			gtk_label_set_text(Turn, " Player 2's Turn");
 			turn = PLAYER2;
+			p1_Score++;
+			char buffer[20];
+			sprintf(buffer, "%d", p1_Score);
+			gtk_label_set_text(Player_1_Score, buffer);
 			break;
 		case PLAYER2:
                         image = gtk_image_new_from_file("wc.png");
@@ -86,6 +90,10 @@ static void callback( GtkWidget *widget,
 			b.current_status = DISABLED;
 			turn = PLAYER1;
 			gtk_label_set_text(Turn, " Player 1's Turn");
+			p2_Score++;
+			char buffer2[20];
+			sprintf(buffer2, "%d", p2_Score);
+			gtk_label_set_text(Player_2_Score, buffer2);
 			break;
 	}
 
