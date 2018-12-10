@@ -79,7 +79,6 @@ static void callback( GtkWidget *widget,
 			turn = PLAYER2;
 			break;
 		case PLAYER2:
-			g_print ("case 2\n");
                         image = gtk_image_new_from_file("wc.png");
 			b.color = WHITE;
                         gtk_button_set_image (widget, image );
@@ -89,7 +88,7 @@ static void callback( GtkWidget *widget,
 			gtk_label_set_text(Turn, " Player 1's Turn");
 			break;
 	}
-	
+
         g_print ("Hello again - button%d-%d was pressed\n", r,c);
 	board[board_count] = b;
 	board_count += 1;

@@ -11,22 +11,27 @@
 typedef enum Status{ENABLED, DISABLED} Status;
 typedef enum Color{ BLACK, WHITE, NONE } Color;
 typedef enum State{PLAYER1, PLAYER2} State;
+
 struct Pairs{
 	int row;
 	int col;
-} Pairr = {99,99};
+} Pairs = {99,99};
+
 typedef struct Pairs Pair;
+
 typedef struct Button{
 	Status current_status;
 	Color color;
 	Pair pair;
 
 } Button;
+
 typedef struct PairList{
 	Pair data;
 	Pair last;
 	struct PairList * next;
 } PairList;
+
 typedef struct Board{
 	Button *buttons;
 	int count;
