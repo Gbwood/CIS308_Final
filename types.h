@@ -22,6 +22,11 @@ typedef struct Button{
 	Pair pair;
 
 } Button;
+typedef struct PairList{
+	Pair data;
+	Pair last;
+	struct PairList * next;
+} PairList;
 typedef struct Board{
 	Button *buttons;
 	int count;
