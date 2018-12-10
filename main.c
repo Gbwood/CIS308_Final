@@ -34,7 +34,7 @@ GtkWidget * fillTable() {
                         g_signal_connect (button, "clicked",G_CALLBACK (callback), (gpointer) name[count]);
 
 			//updates the board, in terms of scoring
-			g_signal_connect_swapped (button, "clicked", G_CALLBACK(update), (gpointer) name[count]);
+			g_signal_connect (button, "clicked", G_CALLBACK(update), (gpointer) name[count]);
 
                         gtk_table_attach_defaults (GTK_TABLE (table), button, j, j+1, i, i + 1);
 
