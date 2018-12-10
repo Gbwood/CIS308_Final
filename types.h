@@ -11,19 +11,26 @@
 typedef enum Status{ENABLED, DISABLED} Status;
 typedef enum Color{ BLACK, WHITE, NONE } Color;
 typedef enum State{PLAYER1, PLAYER2} State;
-typedef struct Pair{
+struct Pairs{
 	int row;
 	int col;
-} Pair;
+} Pairr = {99,99};
+typedef struct Pairs Pair;
 typedef struct Button{
 	Status current_status;
 	Color color;
 	Pair pair;
 
 } Button;
+typedef struct Board{
+	Button *buttons;
+	int count;
+} Board;
 char name[81][10];
 State turn;
 GtkWidget *window;
+Button board[81];
+int board_count;
 
 
 #endif /* types_h */
