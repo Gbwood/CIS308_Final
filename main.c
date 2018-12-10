@@ -23,13 +23,13 @@ GtkWidget * fillTable() {
         int i = 0;
         int j = 0;
 	int count =0;
-        //this should fill a 9 x 9 table with 81 buttons
+        //this will fill a 9 x 9 table with 81 buttons
         for (i = 0; i < 9 ; i++) {
                 for (j = 0; j< 9; j++) {
 
                         sprintf(name[count], "%d%d",i,j);
                         button = gtk_toggle_button_new_with_label(name[count]);
-			
+
 			//would it be possible to make a struct for all the button that contain a variable that changes based on whose turn it is?
                         g_signal_connect (button, "clicked",G_CALLBACK (callback), (gpointer) name[count]);
 
@@ -92,6 +92,25 @@ GtkWidget * makeGameControls() {
 	return box;
 }
 
+GtkWidget* CreatePlayerBox() {
+	GtkWidget * box  = gtk_vbox_new (FALSE, 10);
+
+	Player_1_Score = gtk_label_new( "Player 1 Score: " );
+	gtk_box_pack_start (GTK_BOX (box), Player_1_Score, TRUE, FALSE, 0);
+	gtk_widget_show(Player_1_Score);
+
+	Player_2_Score = gtk_label_new("Player 2 Score: ");
+	gtk_box_pack_start (GTK_BOX (box), Player_2_Score, TRUE, FALSE, 0);
+	gtk_widget_show(Player_2_Score);
+
+	Turn = gtk_label_new("Turn: ");
+	gtk_box_pack_start (GTK_BOX (box), Turn, TRUE, FALSE, 0);
+	gtk_widget_show(Turn);
+
+	return box;
+}
+
+
 
 
 GtkWidget* MakeUI(GtkWidget *window) {
@@ -151,32 +170,121 @@ GtkWidget* MakeUI(GtkWidget *window) {
 
 
 
-	//don't know if this will end up going here or not
-	//box2 = createPlayerBoard();
+	//Add a box with labels to display the score for each player as well as to display whose turn it is
+	box2 = CreatePlayerBox();
+	gtk_box_pack_start (GTK_BOX (box1), box2, FALSE, FALSE, 50);
+	gtk_widget_show(box2);
+
+
+
+
 
 
 	gtk_container_add (GTK_CONTAINER (window), box1);
 
         //now that the table is done we can show it
-        gtk_widget_show (box1);	
+        gtk_widget_show (box1);
 	gtk_widget_show (window);
-	
 
 
 	turn = PLAYER1;
+	gtk_label_set_text(Turn, "Player 1's Turn");
 
 	return window;
 
 
 }
 
+void GetPlayerNames() {
+   	GtkWidget *button;
+    	GtkWidget *table;
+        GtkWidget *box2;
+	GtkWidget *box1;
+	GtkWidget *label;
+	GtkWidget *entry;
 
+	/* Create a new window */
+    	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+
+    	/* Set the window title */
+    	gtk_window_set_title (GTK_WINDOW (window), "Setup");
+
+    	/* Set a handler for delete_event that immediately
+     	* exits GTK. */
+    	g_signal_connect (window, "delete-event",
+                      G_CALLBACK (delete_event), NULL);
+
+	/* Sets the border width of the window. */
+        gtk_container_set_border_width (GTK_CONTAINER (window), 40);
+
+
+	//we are going to create a vertical box to pack the horizontal boxes into
+	box1 = gtk_vbox_new( FALSE, 0);
+	box2 = gtk_hbox_new (FALSE, 0);
+       	//gtk_box_pack_start (GTK_BOX (box1), box2, FALSE, FALSE, 0);
+
+	//name 1
+	label = gtk_label_new("Enter Player 1's Name: ");
+	gtk_box_pack_start (GTK_BOX (box2), label, FALSE, FALSE, 0);
+	entry = gtk_entry_new();
+	gtk_entry_set_max_length(GTK_ENTRY (entry), 15);
+	 g_signal_connect (entry, "activate",
+		      G_CALLBACK (enter_callback),
+		      entry);
+	gtk_box_pack_start(GTK_BOX (box2), entry, FALSE, FALSE, 10);
+	gtk_widget_show(label);
+	gtk_widget_show(entry);
+
+	gtk_box_pack_start (GTK_BOX (box1), box2, FALSE, FALSE, 10);
+	gtk_widget_show (box2);
+
+	//name 2
+	box2 = gtk_hbox_new(FALSE, 0);
+	label = gtk_label_new("Enter Player 2's Name: ");
+	gtk_box_pack_start(GTK_BOX (box2), label, FALSE, FALSE, 0);
+	entry = gtk_entry_new();
+	gtk_entry_set_max_length(GTK_ENTRY (entry), 15);
+	 g_signal_connect (entry, "activate",
+		      G_CALLBACK (enter_callback),
+		      entry);
+	gtk_box_pack_start(GTK_BOX (box2), entry, FALSE, FALSE, 10);
+	gtk_widget_show(label);
+	gtk_widget_show(entry);
+
+	gtk_box_pack_start (GTK_BOX (box1), box2, FALSE, FALSE, 10);
+	gtk_widget_show(box2);
+
+
+	//enter button
+	box2 = gtk_hbox_new(FALSE, 0);
+	button = gtk_button_new_with_label("Enter");
+	g_signal_connect (button, "clicked", G_CALLBACK (delete_event), "Quit");
+	gtk_box_pack_start(GTK_BOX (box2), button, FALSE, FALSE, 0);
+	gtk_widget_show(button);
+
+	gtk_box_pack_start (GTK_BOX (box1), box2, FALSE, FALSE, 10);
+	gtk_widget_show(box2);
+
+
+
+
+
+
+	gtk_container_add (GTK_CONTAINER (window), box1);
+	 //now that the table is done we can show it
+
+        gtk_widget_show (box1);	
+	gtk_widget_show (window);
+
+	gtk_main();
+}
 
 
 int main( int   argc, char *argv[] ) {
     	
 	gtk_init (&argc, &argv);
 
+	GetPlayerNames();
     	/* Create a new window */
     	MakeUI(window);
 	//runs the programs and waits for input from the user

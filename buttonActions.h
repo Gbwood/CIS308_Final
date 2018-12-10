@@ -15,9 +15,15 @@ static void forfeitTurn (GtkWidget *widget, gpointer data) {
 
 	g_print ("player %d skipped their turn", turn);
 
-	if (turn == PLAYER1) PLAYER2;
-	else turn = PLAYER1;
+	if (turn == PLAYER1){
+		turn = PLAYER2;
+		gtk_label_set_text(Turn, "It is Player 2's Turn" );
 
+	}
+	else	{
+		turn = PLAYER1;
+		gtk_label_set_text(Turn, "It is Player 1's Turn");
+	}
         g_print ("it is now player %d's turn.\n", turn);
 
 }
@@ -28,7 +34,13 @@ static void forfeitGame (GtkWidget *widget, gpointer data) {
 
 }
 
-
+static void enter_callback( GtkWidget *widget,
+                            GtkWidget *entry )
+{
+  const gchar *entry_text;
+  entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+  printf ("Entry contents: %s\n", entry_text);
+}
 /* Our callback.
  * The data passed to this function is printed to stdout */
 static void callback( GtkWidget *widget,
@@ -51,6 +63,7 @@ static void callback( GtkWidget *widget,
 			gtk_widget_set_sensitive(widget, FALSE);
 			b.current_status = DISABLED;
 			turn = PLAYER2;
+			gtk_label_set_text(Turn, "It is Player 2's Turn");
 			break;
 		case PLAYER2:
 			g_print ("case 2\n");
@@ -60,6 +73,7 @@ static void callback( GtkWidget *widget,
 			gtk_widget_set_sensitive(widget, FALSE);
 			b.current_status = DISABLED;
 			turn = PLAYER1;
+			gtk_label_set_text(Turn, "It is Player 1's Turn");
 			break;
 	}
 	
@@ -93,8 +107,10 @@ static Pair * findNeighbors(Color color, Pair start, int * count)
 /*function called to determine whether an area is closed by pieces, and which pieces create the enclosure.*/
 static int closedArea(Color color, Pair ** pairs, int count)
 {
+
 	Pair start = **(pairs+count);
 	Pair last;
+
 	if (count != 0)
 	{
 		last = **(pairs+count-1);
@@ -120,6 +136,7 @@ static int closedArea(Color color, Pair ** pairs, int count)
                 next.col = 9;
         }else if (start.row == -1)
         {
+
 		for (int i = 0; neighbors+i != NULL; i++)
 		{
 			**(pairs+count+1) = *(neighbors+i);
@@ -135,6 +152,7 @@ static int closedArea(Color color, Pair ** pairs, int count)
 				}
 			}
 		}
+
 		if (start.col == 9)
 		{
 			next.row = start.row+1;
@@ -226,8 +244,8 @@ static int closedArea(Color color, Pair ** pairs, int count)
 		}
 	}
 	**(pairs+count+1) = next;
-	if (closedArea(color, &pairs, count+1))
-		return 1;
+	if (closedArea(color, &pairs, count+1)) 	return 1;
+
 	return 0;
 }
 /*callback that checks for scoring after a button is pressed.*/
@@ -260,7 +278,6 @@ static gboolean delete_event( GtkWidget *widget,
                               GdkEvent  *event,
                               gpointer   data )
 {
-
     gtk_main_quit ();
     return FALSE;
 }
