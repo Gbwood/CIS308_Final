@@ -228,7 +228,7 @@ void GetPlayerNames() {
 	gtk_box_pack_start (GTK_BOX (box2), label, FALSE, FALSE, 0);
 	entry = gtk_entry_new();
 	gtk_entry_set_max_length(GTK_ENTRY (entry), 15);
-	 g_signal_connect (entry, "activate",
+	 g_signal_connect (entry, "changed",
 		      G_CALLBACK (enter_callback),
 		      entry);
 	gtk_box_pack_start(GTK_BOX (box2), entry, FALSE, FALSE, 10);
@@ -244,7 +244,7 @@ void GetPlayerNames() {
 	gtk_box_pack_start(GTK_BOX (box2), label, FALSE, FALSE, 0);
 	entry = gtk_entry_new();
 	gtk_entry_set_max_length(GTK_ENTRY (entry), 15);
-	 g_signal_connect (entry, "activate",
+	 g_signal_connect (entry, "changed",
 		      G_CALLBACK (enter_callback),
 		      entry);
 	gtk_box_pack_start(GTK_BOX (box2), entry, FALSE, FALSE, 10);
@@ -257,6 +257,7 @@ void GetPlayerNames() {
 
 	//enter button
 	box2 = gtk_hbox_new(FALSE, 0);
+
 	button = gtk_button_new_with_label("Enter");
 	g_signal_connect (button, "clicked", G_CALLBACK (delete_event), "Quit");
 	gtk_box_pack_start(GTK_BOX (box2), button, FALSE, FALSE, 0);
