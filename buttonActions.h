@@ -85,28 +85,38 @@ static void callback( GtkWidget *widget,
 //function that, given a pair and a color, determines all valid neighbors of that color
 static Pair * findNeighbors(Color color, Pair start, int * count)
 {
-	Pair  * neighbors;
+	Pair neighbors[8];
 	int r = start.row;
 	int c = start.col;
 	int co = 0;
-	for (int i = 0; i < board_count; i++)
+	for (int i = 0; i < board_count+1; i++)
 	{
 		if ((board[i].pair.row != r || board[i].pair.col != c) && board[i].color == color)
 		{
+			g_print("der\n");
 			if ((board[i].pair.row == r || board[i].pair.row == r-1 || board[i].pair.row == r+1) && (board[i].pair.col == c || board[i].pair.col == c-1 || board[i].pair.col == c+1))
 			{
-				*(neighbors+co) = board[i].pair;
+				neighbors[i].row = board[i].pair.row;
+				neighbors[i].col = board[i].pair.col;
 				co++;
 			}
 		}
 	}
-	count = &co;
-	return neighbors;
+	g_print("%d\n", co);
+	if (color == BLACK) g_print("BLACK\n");
+	if (color == WHITE) g_print("WHITE\n");
+	if (color == NONE) g_print("NONE\n");
+	*count = co;
+	Pair * neighborss = neighbors;
+	return neighborss;
 }
 
 /*function called to determine whether an area is closed by pieces, and which pieces create the enclosure.*/
-static int closedArea(Color color, Pair ** pairs, int count)
+static int closedArea(Color color, PairList * pairs, int count, Pair last)
 {
+<<<<<<< HEAD
+	Pair start = pairs->data;
+=======
 
 	Pair start = **(pairs+count);
 	Pair last;
@@ -115,9 +125,15 @@ static int closedArea(Color color, Pair ** pairs, int count)
 	{
 		last = **(pairs+count-1);
 	}
+>>>>>>> 1cbac67286b618f5567c918d82f9c500094a7363
 	Pair next;
+	PairList nextlist;
 	int co;
-	Pair * neighbors = findNeighbors(color, start, co);
+	Pair * neighbors = findNeighbors(color, start, &co);
+	if (co == 0)
+	{
+		return 0;
+	}
 	if (start.row == 0)
 	{
 		next.row = -1;
@@ -139,15 +155,15 @@ static int closedArea(Color color, Pair ** pairs, int count)
 
 		for (int i = 0; neighbors+i != NULL; i++)
 		{
-			**(pairs+count+1) = *(neighbors+i);
+			pairs->next->data = *(neighbors+i);
 			if ((neighbors+i)->row != last.row || (neighbors+i)->col != last.col || last.row == 99)
 			{
-				if ((neighbors+i)->row == pairs[0]->row && (neighbors+i)->col == pairs[0]->col)
+				if ((neighbors+i)->row == pairs->data.row && (neighbors+i)->col == pairs->data.col)
 				{
 					return 1;
 				}else
 				{
-					if (closedArea(color, &pairs, count+1))
+					if (closedArea(color, ((*pairs).next), count+1, start))
 						return 1;
 				}
 			}
@@ -166,15 +182,15 @@ static int closedArea(Color color, Pair ** pairs, int count)
         {
 		for (int i = 0; neighbors+i != NULL; i++)
                 {
-                        **(pairs+count+1) = *(neighbors+i);
+                        pairs->next->data = *(neighbors+i);
                         if ((neighbors+i)->row != last.row || (neighbors+i)->col != last.col || last.row == 99)
                         {
-                                if ((neighbors+i)->row == pairs[0]->row && (neighbors+i)->col == pairs[0]->col)
+                                if ((neighbors+i)->row == pairs->data.row && (neighbors+i)->col == pairs->data.col)
                                 {
                                         return 1;
                                 }else
                                 {
-                                        if (closedArea(color, &pairs, count+1))
+                                        if (closedArea(color, ((*pairs).next), count+1, start))
                                                 return 1;
                                 }
                         }
@@ -186,15 +202,15 @@ static int closedArea(Color color, Pair ** pairs, int count)
         {
 		for (int i = 0; neighbors+i != NULL; i++)
                 {
-                        **(pairs+count+1) = *(neighbors+i);
-                        if ((neighbors+i)->row != last.row || (neighbors+i)->col != last.col || last.row == 99)
+                        pairs->next->data = *(neighbors+i);
+			if ((neighbors+i)->row != last.row || (neighbors+i)->col != last.col || last.row == 99)
                         {
-                                if ((neighbors+i)->row == pairs[0]->row && (neighbors+i)->col == pairs[0]->col)
+                                if ((neighbors+i)->row == pairs->data.row && (neighbors+i)->col == pairs->data.col)
                                 {
                                         return 1;
                                 }else
                                 {
-                                        if (closedArea(color, &pairs, count+1))
+                                        if (closedArea(color, ((*pairs).next), count+1, start))
                                                 return 1;
                                 }
                         }
@@ -205,15 +221,15 @@ static int closedArea(Color color, Pair ** pairs, int count)
         {
 		for (int i = 0; neighbors+i != NULL; i++)
                 {
-                        **(pairs+count+1) = *(neighbors+i);
+                        pairs->next->data = *(neighbors+i);
                         if ((neighbors+i)->row != last.row || (neighbors+i)->col != last.col || last.row == 99)
                         {
-                                if ((neighbors+i)->row == pairs[0]->row && (neighbors+i)->col == pairs[0]->col)
+                                if ((neighbors+i)->row == pairs->data.row && (neighbors+i)->col == pairs->data.col)
                                 {
                                         return 1;
                                 }else
                                 {
-                                        if (closedArea(color, &pairs, count+1))
+                                        if (closedArea(color, ((*pairs).next), count+1, start))
                                                 return 1;
                                 }
                         }
@@ -227,6 +243,26 @@ static int closedArea(Color color, Pair ** pairs, int count)
                         next.row = start.row-1;
                         next.col = start.col;
                 }
+<<<<<<< HEAD
+        }	for (int i = 0; neighbors+i < neighbors+co; i++)
+                {
+                        pairs->next->data = *(neighbors+i);
+                        if ((neighbors+i)->row != last.row || (neighbors+i)->col != last.col || last.row == 99)
+                        {
+                                if ((neighbors+i)->row == pairs->data.row && (neighbors+i)->col == pairs->data.col)
+                                {
+                                        return 1;
+                                }else
+                                {
+                                        if (closedArea(color, ((*pairs).next), count+1, start))
+                                                return 1;
+                                }
+                        }
+                }
+	pairs->next->data = next;
+	if (closedArea(color, ((*pairs).next), count+1, start))
+		return 1;
+=======
         }
 	for (int i = 0; neighbors+i != NULL; i++)
 	{
@@ -246,6 +282,7 @@ static int closedArea(Color color, Pair ** pairs, int count)
 	**(pairs+count+1) = next;
 	if (closedArea(color, &pairs, count+1)) 	return 1;
 
+>>>>>>> 1cbac67286b618f5567c918d82f9c500094a7363
 	return 0;
 }
 /*callback that checks for scoring after a button is pressed.*/
@@ -262,14 +299,14 @@ static void update(GtkWidget *widget, gpointer data)
 			current = board[i];
 		}
 	}
-	Pair * pairs = malloc(sizeof *pairs);
-	*pairs = current.pair;
-	if (closedArea(current.color, &pairs, 0))
+	PairList pairs;
+	pairs.data = current.pair;
+	Pair last;
+	if (closedArea(current.color, &pairs, 0, last))
 	{
 		//PUT SCORE FUNCTION ONE HERE
 		g_print("Closed Area Found!\n");
 	}
-	free(pairs);
 
 }
 
