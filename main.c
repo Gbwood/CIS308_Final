@@ -94,14 +94,35 @@ GtkWidget * makeGameControls() {
 
 GtkWidget* CreatePlayerBox() {
 	GtkWidget * box  = gtk_vbox_new (FALSE, 10);
+	GtkWidget *box2 = gtk_hbox_new(FALSE,0);
+	GtkWidget *name;
 
-	Player_1_Score = gtk_label_new(player_1_Name  );
-	gtk_box_pack_start (GTK_BOX (box), Player_1_Score, TRUE, FALSE, 0);
+
+	name = gtk_label_new(player_1_Name  );
+	gtk_box_pack_start(GTK_BOX (box2),name, TRUE, FALSE,0);
+ 	gtk_widget_show(name);
+	
+	Player_1_Score = gtk_label_new("0");
+	gtk_box_pack_start (GTK_BOX (box2), Player_1_Score, TRUE, FALSE, 0);
 	gtk_widget_show(Player_1_Score);
 
-	Player_2_Score = gtk_label_new(player_2_Name);
-	gtk_box_pack_start (GTK_BOX (box), Player_2_Score, TRUE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX (box), box2, TRUE, FALSE, 0);
+	gtk_widget_show(box2);
+
+
+	box2 = gtk_hbox_new(FALSE,0);
+	name = gtk_label_new(player_2_Name);
+	gtk_box_pack_start(GTK_BOX (box2), name, TRUE, FALSE, 0);
+	gtk_widget_show(name);
+
+
+
+	Player_2_Score = gtk_label_new("0");
+	gtk_box_pack_start (GTK_BOX (box2), Player_2_Score, TRUE, FALSE, 0);
 	gtk_widget_show(Player_2_Score);
+
+	gtk_box_pack_start(GTK_BOX (box), box2,TRUE, FALSE, 0);
+	gtk_widget_show(box2);
 
 	Turn = gtk_label_new("Turn: ");
 	gtk_box_pack_start (GTK_BOX (box), Turn, TRUE, FALSE, 0);
@@ -202,20 +223,17 @@ void GetPlayerNames() {
 	GtkWidget *box1;
 	GtkWidget *label;
 	GtkWidget *entry;
+	GtkWidget *window2;
 
 	/* Create a new window */
-    	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    	window2 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
     	/* Set the window title */
-    	gtk_window_set_title (GTK_WINDOW (window), "Setup");
+    	gtk_window_set_title (GTK_WINDOW (window2), "Setup");
 
-    	/* Set a handler for delete_event that immediately
-     	* exits GTK. */
-    	g_signal_connect (window, "delete-event",
-                      G_CALLBACK (delete_event), NULL);
 
 	/* Sets the border width of the window. */
-        gtk_container_set_border_width (GTK_CONTAINER (window), 40);
+        gtk_container_set_border_width (GTK_CONTAINER (window2), 40);
 
 
 	//we are going to create a vertical box to pack the horizontal boxes into
@@ -245,7 +263,7 @@ void GetPlayerNames() {
 	entry = gtk_entry_new();
 	gtk_entry_set_max_length(GTK_ENTRY (entry), 15);
 	 g_signal_connect (entry, "changed",
-		      G_CALLBACK (enter_callback),
+		      G_CALLBACK (enter2_callback),
 		      entry);
 	gtk_box_pack_start(GTK_BOX (box2), entry, FALSE, FALSE, 10);
 	gtk_widget_show(label);
@@ -271,13 +289,14 @@ void GetPlayerNames() {
 
 
 
-	gtk_container_add (GTK_CONTAINER (window), box1);
+	gtk_container_add (GTK_CONTAINER (window2), box1);
 	 //now that the table is done we can show it
 
         gtk_widget_show (box1);	
-	gtk_widget_show (window);
+	gtk_widget_show (window2);
 
 	gtk_main();
+	gtk_window_close(window2);
 }
 
 

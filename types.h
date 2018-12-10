@@ -41,8 +41,8 @@ Button board[81];
 int board_count;
 GtkWidget * Player_1_Score;
 GtkWidget * Player_2_Score;
-char player_1_Name;
-char player_2_Name;
+gchar* player_1_Name;
+gchar* player_2_Name;
 GtkWidget * Turn;
 #endif /* types_h */
 
