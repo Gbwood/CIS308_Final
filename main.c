@@ -95,11 +95,11 @@ GtkWidget * makeGameControls() {
 GtkWidget* CreatePlayerBox() {
 	GtkWidget * box  = gtk_vbox_new (FALSE, 10);
 
-	Player_1_Score = gtk_label_new( "Player 1 Score: " );
+	Player_1_Score = gtk_label_new(player_1_Name  );
 	gtk_box_pack_start (GTK_BOX (box), Player_1_Score, TRUE, FALSE, 0);
 	gtk_widget_show(Player_1_Score);
 
-	Player_2_Score = gtk_label_new("Player 2 Score: ");
+	Player_2_Score = gtk_label_new(player_2_Name);
 	gtk_box_pack_start (GTK_BOX (box), Player_2_Score, TRUE, FALSE, 0);
 	gtk_widget_show(Player_2_Score);
 

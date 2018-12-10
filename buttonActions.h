@@ -32,7 +32,17 @@ static void enter_callback( GtkWidget *widget,
 {
   const gchar *entry_text;
   entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
-  printf ("Entry contents: %s\n", entry_text);
+  player_1_Name = entry_text;
+  
+//  printf ("Entry contents: %s\n", player_1_Name);
+}
+
+static void enter2_callback( GtkWidget *widget,
+                            GtkWidget *entry )
+{
+  
+  player_2_Name = gtk_entry_get_text (GTK_ENTRY (entry));
+  //printf ("Entry contents: %s\n", entry_text);
 }
 
 /* Our callback.
