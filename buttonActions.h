@@ -85,7 +85,6 @@ static Pair * findNeighbors(Color color, Pair start, int * count)
 	{
 		if ((board[i].pair.row != r || board[i].pair.col != c) && board[i].color == color)
 		{
-			g_print("der\n");
 			if ((board[i].pair.row == r || board[i].pair.row == r-1 || board[i].pair.row == r+1) && (board[i].pair.col == c || board[i].pair.col == c-1 || board[i].pair.col == c+1))
 			{
 				neighbors[i].row = board[i].pair.row;
@@ -95,9 +94,6 @@ static Pair * findNeighbors(Color color, Pair start, int * count)
 		}
 	}
 	g_print("%d\n", co);
-	if (color == BLACK) g_print("BLACK\n");
-	if (color == WHITE) g_print("WHITE\n");
-	if (color == NONE) g_print("NONE\n");
 	*count = co;
 	Pair * neighborss = neighbors;
 	return neighborss;
@@ -222,8 +218,10 @@ static int closedArea(Color color, PairList * pairs, int count, Pair last)
                         next.row = start.row-1;
                         next.col = start.col;
                 }
-        }	for (int i = 0; neighbors+i < neighbors+co; i++)
+        }
+	for (int i = 0; neighbors+i < neighbors+co; i++)
                 {
+			g_print("here?\n");
                         pairs->next->data = *(neighbors+i);
                         if ((neighbors+i)->row != last.row || (neighbors+i)->col != last.col || last.row == 99)
                         {
