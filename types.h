@@ -43,6 +43,9 @@ GtkWidget * Player_1_Score;
 GtkWidget * Player_2_Score;
 gchar* player_1_Name;
 gchar* player_2_Name;
+const char * name_1;
+const char * name_2;
+
 GtkWidget * Turn;
 #endif /* types_h */
 

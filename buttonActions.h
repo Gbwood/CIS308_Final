@@ -4,7 +4,7 @@ GtkWidget * MakeUI(GtkWidget*);
 
 
 static void Restart (GtkWidget *widget, gpointer data) {
-//	window.destroy();
+	//gtk_window_close(window);
         MakeUI(window);
         g_print ("restart\n");
 }
@@ -15,16 +15,31 @@ static void forfeitTurn (GtkWidget *widget, gpointer data) {
 
 	g_print ("player %d skipped their turn", turn);
 
-	if (turn == PLAYER1) PLAYER2;
-	else turn = PLAYER1;
+	if (turn == PLAYER1){ 
+		turn = PLAYER2;
+		gtk_label_set_text(Turn, " Player 2 Turn");
+	}
+	else {
+		turn = PLAYER1;
+		gtk_label_set_text(Turn, " Player 1 Turn");
 
+	}
         g_print ("it is now player %d's turn.\n", turn);
 
 }
 
 static void forfeitGame (GtkWidget *widget, gpointer data) {
 
-        g_print ("Game Forfeited by %d\n", turn);
+	switch (turn){
+		//add get image to each case to check if peice has already been played on tile
+		case PLAYER1:
+        		gtk_label_set_text(Turn, "Player 1 has forfeited the game, Player 2 Wins");
+			break;
+		case PLAYER2:
+			gtk_label_set_text(Turn, "Player 2 has forfeited the game, Player 2 Wins");
+			break;
+	}
+        gtk_window_close(window);
 
 }
 static void enter_callback( GtkWidget *widget,
@@ -60,6 +75,7 @@ static void callback( GtkWidget *widget,
         		gtk_button_set_image (widget, image );
 			gtk_widget_set_sensitive(widget, FALSE);
 			b.current_status = DISABLED;
+			gtk_label_set_text(Turn, " Player 2's Turn");
 			turn = PLAYER2;
 			break;
 		case PLAYER2:
@@ -70,6 +86,7 @@ static void callback( GtkWidget *widget,
 			gtk_widget_set_sensitive(widget, FALSE);
 			b.current_status = DISABLED;
 			turn = PLAYER1;
+			gtk_label_set_text(Turn, " Player 1's Turn");
 			break;
 	}
 	

@@ -83,12 +83,12 @@ GtkWidget * makeGameControls() {
         gtk_widget_show(button);
 
 
-        //creating the Restart Button
+/*        //creating the Restart Button
         button = gtk_button_new_with_label("Restart Game");
         g_signal_connect (button, "clicked", G_CALLBACK (Restart), "Restart");
         gtk_box_pack_start (GTK_BOX (box), button, TRUE, FALSE, 0);
         gtk_widget_show(button);
-
+*/
 	return box;
 }
 
@@ -101,7 +101,7 @@ GtkWidget* CreatePlayerBox() {
 	name = gtk_label_new(player_1_Name  );
 	gtk_box_pack_start(GTK_BOX (box2),name, TRUE, FALSE,0);
  	gtk_widget_show(name);
-	
+
 	Player_1_Score = gtk_label_new("0");
 	gtk_box_pack_start (GTK_BOX (box2), Player_1_Score, TRUE, FALSE, 0);
 	gtk_widget_show(Player_1_Score);
@@ -124,7 +124,16 @@ GtkWidget* CreatePlayerBox() {
 	gtk_box_pack_start(GTK_BOX (box), box2,TRUE, FALSE, 0);
 	gtk_widget_show(box2);
 
-	Turn = gtk_label_new("Turn: ");
+
+
+
+
+
+
+ 
+
+
+	Turn = gtk_label_new(" Player 1's Turn");
 	gtk_box_pack_start (GTK_BOX (box), Turn, TRUE, FALSE, 0);
 	gtk_widget_show(Turn);
 
@@ -209,7 +218,7 @@ GtkWidget* MakeUI(GtkWidget *window) {
 
 
 	turn = PLAYER1;
-	gtk_label_set_text(Turn, "Player 1's Turn");
+
 
 	return window;
 
@@ -297,11 +306,11 @@ void GetPlayerNames() {
 
 	gtk_main();
 	gtk_window_close(window2);
+	name_1 = player_1_Name;
 }
 
 
 int main( int   argc, char *argv[] ) {
-    	
 	gtk_init (&argc, &argv);
 
 	GetPlayerNames();
